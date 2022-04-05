@@ -10,10 +10,10 @@ from os import path
 HEADER = b'XuV3'
 FILEREP = '/tmp/'
 
-def XORDecode(data):
+def plainText(data):
     global key
-    unxoreddata = b''.join(chr(charData ^ ord(key[idxData%len(key)])).encode('utf-8') for idxData, charData in enumerate(data))
-    return unxoreddata
+    plain = b''.join(chr(charData ^ ord(key[idxData%len(key)])).encode('utf-8') for idxData, charData in enumerate(data))
+    return plain
 
 def startICMPSniffer(iface):
     print('Starting ICMP sniffer...')
@@ -24,7 +24,7 @@ def receiveData(packet):
         raw = packet.getlayer(Raw).load
         header = raw[0:4]
         if header==HEADER:
-           payload=XORDecode(raw[4::]).split(b':',1)
+           payload=plainText(raw[4::]).split(b':',1)
            fileName = FILEREP + os.path.basename(payload[0].decode('ASCII'))
            print("Receiving file %s" % fileName)
            with open(fileName,'ab') as f:

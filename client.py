@@ -50,7 +50,6 @@ def run(file, key, server):
         print("Estimated time to send all packets : %s" % convertTime(timeToSend))
         while (data := f.read(dataPerPacket)):
             cipheredData = cipher(file, data, key)
-            print(data)
             sendData(cipheredData, server)
             packetSent += 1
             print("\rPacket : %i/%i" % (packetSent,packetNumber),end='')

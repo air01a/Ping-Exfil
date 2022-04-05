@@ -5,7 +5,7 @@ from time import sleep
 import argparse as ap
 from os import path
 
-PACKETLENGTH = 50
+PACKETLENGTH = 900
 SLEEPTIME = 0.1
 HEADER = 'XuV3'
 
